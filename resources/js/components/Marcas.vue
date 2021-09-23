@@ -3,10 +3,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <!--Inicio do card de Busca-->
-            <div class="card mb-3">
-                <div class="card-header">Busca de Marcas</div>
-
-                <div class="card-body">
+            <card-component titulo="Busca de Marcas">
+                <template v-slot:conteudo>
                     <div class="form-row">
                         <div class="col mb-3">
                             <input-container-component titulo='Nome da Marca' id='inputNome' idHelp='nomeHelp' textoAjuda='Opcional. Informe o nome da marca'>
@@ -19,24 +17,23 @@
                             </input-container-component>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Pesquisar</button>
-                </div>
-            </div>
+                </template>
+                <template v-slot:rodape>
+                     <button type="submit" class="btn btn-primary btn-sm float-right">Pesquisar</button>
+                </template>    
+            </card-component>
+            
              <!--Fim do card de Busca-->
 
             <!--Inicio do card de Registros-->
-                <div class="card">
-                <div class="card-header">Relação de Marcas</div>
-
-                <div class="card-body">
-                    <table-component></table-component>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary btn-sm float-right">Adicionar</button>
-                </div>
-            </div>
+                <card-component titulo="Relação de Marcas">
+                    <template v-slot:conteudo>
+                         <table-component></table-component>
+                    </template>
+                    <template v-slot:rodape>
+                         <button type="button" class="btn btn-primary btn-sm float-right">Adicionar</button>
+                    </template>
+                </card-component>
             <!--Fim do card de Registros-->
         </div>
     </div>
