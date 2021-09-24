@@ -77,16 +77,30 @@
                    return token;
                }
            },
+       mounted(){
+           this.carregarLista()
+       },    
        data(){
            return{
                urlBase: 'http://localhost:8000/api/v1/marca',
                nomeMarca: '',
                arquivoImagem: [],
                transacaoStatus: '',
-               transacaoDetalhes: {}
+               transacaoDetalhes: {},
+               marcas: []
            }
        },
        methods:{
+           carregarLista(){
+               axios.get(this.urlBase)
+                .then(response => {
+                    this.marcas = response.data
+                    console.log(this.marcas);
+                })
+                .catch(errors => {
+                    console.log(errors)
+                })
+           },
            carregarImagem(e){
                this.arquivoImagem = e.target.files
            },
