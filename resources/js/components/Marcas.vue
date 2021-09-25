@@ -47,13 +47,13 @@
                     <input-container-component titulo='Nome da marca' id='novoNome' idHelp='novoNomeHelp' textoAjuda='Informe o nome da marca'>
                         <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
                     </input-container-component>
-                    {{nomeMarca}}
+                    
                 </div>
                 <div class="form-group">
                     <input-container-component titulo='Imagem' id='novoImagem' idHelp='novoImagemHelp' textoAjuda='Selecione uma imagem no formato PNG'>
                         <input type="file" class="form-control-file" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
                     </input-container-component>
-                    {{arquivoImagem}}
+                    
                 </div>
             </template>
 
@@ -103,7 +103,6 @@
                axios.get(this.urlBase, config)
                 .then(response => {
                     this.marcas = response.data
-                    console.log(this.marcas);
                 })
                 .catch(errors => {
                     console.log(errors)
