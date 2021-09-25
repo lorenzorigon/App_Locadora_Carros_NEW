@@ -28,7 +28,7 @@
                 <!--Inicio do card de Registros-->
                     <card-component titulo="Relação de Marcas">
                         <template v-slot:conteudo>
-                            <table-component :dados="marcas" 
+                            <table-component :dados="marcas.data" 
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'text'},
                                 nome: {titulo: 'Nome', tipo: 'text'},
@@ -39,7 +39,18 @@
                             ></table-component>
                         </template>
                         <template v-slot:rodape>
-                            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalMarca">Adicionar</button>
+                            <div class="row">
+                                <div class="col-10">
+                                    <paginate-component>
+                                        <li v-for="l, key in marcas.links" :key="key" :class="l.active ? 'page-item active' : 'page-item'" @click="paginacao(l)">
+                                            <a class="page-link" v-html="l.label"></a>
+                                        </li>
+                                    </paginate-component>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalMarca">Adicionar</button>
+                                </div>
+                            </div>
                         </template>
                     </card-component>
                 <!--Fim do card de Registros-->
@@ -95,10 +106,16 @@
                arquivoImagem: [],
                transacaoStatus: '',
                transacaoDetalhes: {},
-               marcas: []
+               marcas: {data: [] }
            }
        },
        methods:{
+           paginacao(l){
+               if(l.url){
+                this.urlBase = l.url // ajustando a url de consulta com o parametro de página 
+                this.carregarLista() // requisitando novamente os dados para a api
+               }
+           },
            carregarLista(){
 
                let config = {
@@ -138,7 +155,6 @@
                     this.transacaoDetalhes = {
                     mensagem: 'ID do registro: '+response.data.id
                     }
-                    console.log(response)
                 })
                 .catch(errors => {
                     this.transacaoStatus = 'erro'

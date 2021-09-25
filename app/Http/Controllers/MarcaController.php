@@ -37,17 +37,7 @@ class MarcaController extends Controller
             $marcaRepository->selectAtributos($request->atributos);
         } 
 
-        return response()->json($marcaRepository->getResultado(), 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($marcaRepository->getResultadoPaginado(3), 200);
     }
 
     /**
