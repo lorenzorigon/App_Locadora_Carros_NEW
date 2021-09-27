@@ -29,12 +29,13 @@
                     <card-component titulo="Relação de Marcas">
                         <template v-slot:conteudo>
                             <table-component :dados="marcas.data" 
+                            :visualizar="true"
+                            :atualizar="true"
+                            :remover="true"
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'text'},
                                 nome: {titulo: 'Nome', tipo: 'text'},
-                                imagem: {titulo: 'Imagem', tipo: 'imagem'},
-                                created_at: {titulo: 'Data de Criação', tipo: 'data'}
-
+                                imagem: {titulo: 'Imagem', tipo: 'imagem'}
                             }"
                             ></table-component>
                         </template>
