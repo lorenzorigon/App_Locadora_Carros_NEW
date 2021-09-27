@@ -135,7 +135,7 @@
             <template v-slot:conteudo>
                 <div class="form-group">
                     <input-container-component titulo='Nome da marca' id='atualizarNome' idHelp='atualizarNomeHelp' textoAjuda='Informe o nome da marca'>
-                        <input type="text" class="form-control" id="atualizarNome" aria-describedby="atualizarNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
+                        <input type="text" class="form-control" id="atualizarNome" aria-describedby="atualizarNomeHelp" placeholder="Nome da marca" v-model="$store.state.item.nome">
                     </input-container-component>
                     
                 </div>
@@ -186,7 +186,29 @@
        },
        methods:{
            atualizar(){
-               console.log(this.$store.state.item)
+               let formData = new FormData();
+               formData.append('_method', 'patch')
+               formData.append('nome', this.$store.state.item.nome)
+               formData.append('imagem', this.arquivoImagem[0])
+
+               let url = this.urlBase + '/' + this.$store.state.item.id
+
+               let config = {
+                   headers:{
+                       'Content-Type' : 'multipart/form-data',
+                       'Authorization' : this.token,
+                       'Accept' : 'aplication/json'
+                   }
+               }
+
+               axios.post(url, formData, config)
+                    .then(response => {
+                        console.log('Atualizado' , response)
+                        this.carregarLista()
+                    })
+                    .catch(errors => {
+                        console.log('Erro de att', errors)
+                    })
            },
            remover(){
                let confirmacao = confirm('Tem certeza que deseja remover esse registro?');
