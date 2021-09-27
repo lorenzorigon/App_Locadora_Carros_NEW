@@ -129,8 +129,8 @@
         <!-- Inicio modal de edição de marca -->
         <modal-component id="modalMarcaAtualizar" titulo="Atualizar Marca">
             <template v-slot:alertas>
-                <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Marca cadastrada com sucesso!" v-if="transacaoStatus == 'adicionado'"></alert-component>
-                <alert-component tipo="danger" :detalhes="transacaoDetalhes" titulo="Erro ao tentar cadastrar a marca" v-if="transacaoStatus == 'erro'"></alert-component>
+                <alert-component tipo="success" titulo="Transação realizada com sucesso" :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                <alert-component tipo="danger" titulo="Erro na transação" :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'erro'"></alert-component>
             </template>
             <template v-slot:conteudo>
                 <div class="form-group">
@@ -149,7 +149,7 @@
 
             <template v-slot:rodape>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" @click="atualizar()">Atualizar</button>
+                <button type="button" class="btn btn-primary" @click="atualizar()">Atualizarrrr</button>
             </template>
         </modal-component>
         <!-- Fim modal de edição de marca -->
@@ -206,12 +206,15 @@
 
                axios.post(url, formData, config)
                     .then(response => {
-                        console.log('Atualizado' , response)
+                        this.$store.state.transacao.status = 'sucesso'
+                        this.$store.state.transacao.mensagem = 'Registro de marca atualizado com sucesso'
                         atualizarImagem.value = ''
                         this.carregarLista()
                     })
                     .catch(errors => {
-                        console.log('Erro de att', errors)
+                        this.$store.state.transacao.status = 'erro'
+                        this.$store.state.transacao.mensagem = errors.response.data.message
+                        this.$store.state.transacao.dados = errors.response.data.errors
                     })
            },
            remover(){
