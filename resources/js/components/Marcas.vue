@@ -29,7 +29,7 @@
                     <card-component titulo="Relação de Marcas">
                         <template v-slot:conteudo>
                             <table-component :dados="marcas.data" 
-                            :visualizar="true"
+                            :visualizar="{visivel : true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar   '}"
                             :atualizar="true"
                             :remover="true"
                             :titulos="{
@@ -57,6 +57,7 @@
                 <!--Fim do card de Registros-->
             </div>
         </div>
+        <!-- Inicio modal de inclusão de marca -->
         <modal-component id="modalMarca" titulo="Adicionar Marca">
             <template v-slot:alertas>
                 <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Marca cadastrada com sucesso!" v-if="transacaoStatus == 'adicionado'"></alert-component>
@@ -82,6 +83,27 @@
                 <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
             </template>
         </modal-component>
+        <!-- Fim modal de inclusão de marca -->
+
+        <!-- Inicio modal de visualização de marca -->
+        <modal-component id="modalMarcaVisualizar" titulo="Visualizar Marca">  
+            <template v-slot:alertas></template>
+            <template v-slot:conteudo>
+               <input-container-component titulo="ID"> 
+                    <input type="text" class="form-control" :value="$store.state.item.id" disabled>
+               </input-container-component>
+               <input-container-component titulo="Nome da Marca"> 
+                    <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+               </input-container-component>
+               <input-container-component titulo="Imagem"> 
+                    <img :src="'storage/'+$store.state.item.imagem" v-if="$store.state.item.imagem">
+               </input-container-component>
+            </template>
+            <template v-slot:rodape>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </template>
+        </modal-component>
+        <!-- Fim modal de visualização de marca -->
     </div>
 </template>
 
