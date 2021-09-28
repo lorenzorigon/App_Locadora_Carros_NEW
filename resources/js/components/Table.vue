@@ -11,7 +11,9 @@
                 <tr v-for="obj, chave in dadosFiltrados" :key="chave">
                     <td v-for="valor, chaveValor in obj" :key="chaveValor">
                         <span v-if="titulos[chaveValor].tipo == 'text'">{{valor}}</span>
-                        <span v-if="titulos[chaveValor].tipo == 'data'">{{'...'+valor}}</span>
+                        <span v-if="titulos[chaveValor].tipo == 'data'">
+                            {{ valor | formataDataTempo }} 
+                        </span>
                         <span v-if="titulos[chaveValor].tipo == 'imagem'">
                             <img :src="'/storage/'+valor" width="30px" height="30px" >
                         </span>
@@ -29,6 +31,14 @@
 
 <script>
     export default {
+        filters:{
+            formataDataTempo(d){
+                d = d.split('T')[0]
+                d = d.split('-')
+                d = d[2] + '/' + d[1] + '/' + d[0] 
+                return d;
+            }
+        },
         props:['dados', 'titulos', 'atualizar', 'visualizar', 'remover'],
         methods:{
             setStore(obj){

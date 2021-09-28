@@ -35,7 +35,8 @@
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'text'},
                                 nome: {titulo: 'Nome', tipo: 'text'},
-                                imagem: {titulo: 'Imagem', tipo: 'imagem'}
+                                imagem: {titulo: 'Imagem', tipo: 'imagem'},
+                                created_at: {titulo : 'Data de Criação', tipo: 'data'}
                             }"
                             ></table-component>
                         </template>
